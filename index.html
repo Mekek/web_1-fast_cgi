@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratory work №1</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f4f8;
+            color: #333;
+        }
+
+        .header {
+            background-color: #3f51b5;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-bottom: 20px;
+            font-family: 'cursive';
+        }
+
+        .header p {
+            font-style: normal; 
+        }
+
+        .header p[data-group],
+        .header p[data-variant] {
+            font-style: italic; 
+        }
+
+        .header h1 {
+            font-family: 'Cursive', sans-serif;
+            font-size: 2em;
+            margin: 0;
+        }
+
+        .header p {
+            font-size: 1.2em;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 20px;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-right: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input[type="number"] {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 1em;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        button[type="submit"] {
+            background-color: #3f51b5;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1em;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #283593;
+        }
+
+        .graph {
+            stroke: black;
+            fill: black;
+            max-width: 100%;
+            height: auto;
+            margin: 0 auto;
+        }
+
+        .graph text {
+            fill: black; 
+        }
+
+        .graph polygon,
+        .graph rect,
+        .graph circle,
+        .graph line,
+        .graph path {
+            stroke: black; 
+        }
+
+        .graph rect,
+        .graph polygon,
+        .graph path {
+            fill-opacity: 0.1; 
+        }
+
+        .results-side {
+            margin-top: 20px;
+        }
+
+        .res-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: white;
+        }
+
+        .res-table th, .res-table td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ccc;
+        }
+
+        .res-table th {
+            background-color: #3f51b5;
+            color: white;
+        }
+
+        .res-table td {
+            background-color: #f5f5f5;
+        }
+
+        .flex-container {
+            display: flex;
+            justify-content: space-between; 
+            align-items: center; 
+            padding: 20px; 
+        }
+
+        .form-container {
+            margin-left: 25%;
+            flex: 0 0 auto;
+        }
+
+        .graph-container {
+            margin-right: 25%; 
+            flex: 0 0 auto; 
+        }
+
+    </style>
+</head>
+<body>
+    <div class="header">
+    <h1>Kadilov Mikhail Vladimirovich</h1>
+    <p class="group" data-group="P3331">Group: P3331</p>
+    <p class="variant" data-variant="939272">Variant: 939272</p>
+    </div>
+    
+    <div class="flex-container">
+        <form class="form-container">
+            <div class="form-group">
+                <label for="x">X:</label>
+                <div id="coord-x" class="radio-group">
+                    <label><input type="radio" name="x" value="-5">-2</label>
+                    <label><input type="radio" name="x" value="-4">-1.5</label>
+                    <label><input type="radio" name="x" value="-3">-1</label>
+                    <label><input type="radio" name="x" value="-2">-0.5</label>
+                    <label><input type="radio" name="x" value="-1">0</label>
+                    <label><input type="radio" name="x" value="0">0.5</label>
+                    <label><input type="radio" name="x" value="1">1</label>
+                    <label><input type="radio" name="x" value="2">1.5</label>
+                    <label><input type="radio" name="x" value="3">2</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="y">Y:</label>
+                <input type="number" id="y" name="y" min="-5" max="5" step="0.5" required>
+            </div>
+            <div class="form-group">
+                <label>R:</label>
+                <label><input type="radio" name="r" value="1" required> 1</label>
+                <label><input type="radio" name="r" value="1.5"> 1.5</label>
+                <label><input type="radio" name="r" value="2"> 2</label>
+                <label><input type="radio" name="r" value="2.5"> 2.5</label>
+                <label><input type="radio" name="r" value="3"> 3</label>
+            </div>
+            <button id="send-btn" type="submit">Check</button>
+        </form>
+        <div class="graph-container">
+            <svg class="graph" height="300" width="300" xmlns="http://www.w3.org/2000/svg">
+
+                <!-- Оси со стрелками -->
+                <line x1="0" x2="285" y1="150" y2="150" />
+                <line x1="150" x2="150" y1="15" y2="300" />
+                <polygon points="150,0 144,15 156,15" />
+                <polygon points="300,150 285,156 285,144" />
+            
+                <!-- Засечки -->
+                <line x1="200" x2="200" y1="155" y2="145" />
+                <line x1="250" x2="250" y1="155" y2="145" />
+            
+                <line x1="50" x2="50" y1="155" y2="145" />
+                <line x1="100" x2="100" y1="155" y2="145" />
+            
+                <line x1="145" x2="155" y1="100" y2="100" />
+                <line x1="145" x2="155" y1="50" y2="50" />
+            
+                <line x1="145" x2="155" y1="200" y2="200" />
+                <line x1="145" x2="155" y1="250" y2="250" />
+            
+                <!-- Подписи к засечкам    -->
+                <text x="195" y="170">R/2</text>
+                <text x="248" y="170">R</text>
+            
+                <text x="40" y="170">-R</text>
+                <text x="90" y="170">-R/2</text>
+            
+                <text x="120" y="105">R/2</text>
+                <text x="130" y="55">R</text>
+            
+                <text x="120" y="205">-R/2</text>
+                <text x="130" y="255">-R</text>
+            
+                <text x="160" y="10">Y</text>
+                <text x="290" y="140">X</text>
+            
+                <!-- Треугольник (справа сверху) -->
+                <polygon points="150,100 150,150 200,150" fill-opacity="0.1" />
+
+                <!-- Прямоугольник (слева снизу) -->
+                <rect x="50" y="150" width="100" height="50" fill-opacity="0.1" />
+            
+                <!-- Полукруг (спарвва снизу) -->
+                <path d="M 150 100 A 50 50, 0, 0, 0, 100 150 L 150 150 Z" fill-opacity="0.1" /> 
+            
+                <!-- Центр оси координат -->
+                <circle cx="150" cy="150" id="target-dot" r="0" />
+            </svg>
+        </div>
+    </div>
+    <div class="results-side">
+        <table class="res-table" id="res-table">
+            <tr>
+                <th>Hit</th>
+                <th>X</th>
+                <th>Y</th>
+                <th>R</th>
+                <th>Operating time (ms)</th>
+                <th>Current time</th>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
