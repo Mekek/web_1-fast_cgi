@@ -34,7 +34,7 @@ public class Validate {
         return log;
     }
 
-    public boolean checkX(double x) {
+    public boolean checkX(Double x) {
         if (xRange.contains(x)) {
             return true;
         }
@@ -51,7 +51,7 @@ public class Validate {
         return false;
     }
 
-    public boolean checkR(double r) {
+    public boolean checkR(Double r) {
         if (rRange.contains(r)) {
             return true;
         }
