@@ -56,7 +56,7 @@ class Server {
     private static String resp(boolean isShoot, String x, String y, String r, long wt) {
         String content = """
                 {"result":"%s","x":"%s","y":"%s","r":"%s","time":"%s","workTime":"%s","error":"all ok"}
-                """.formatted(isShoot, x, y, r, (double)(System.nanoTime() - wt) / 10000000, LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")));
+                """.formatted(isShoot, x, y, r, (double)(System.nanoTime() - wt) / 1000000, LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")));
         return """
                 Content-Type: application/json; charset=utf-8
                 Content-Length: %d
