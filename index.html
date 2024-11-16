@@ -19,7 +19,7 @@
             text-align: center;
             padding: 20px;
             margin-bottom: 20px;
-            font-family: 'cursive';
+            font-family: cursive;
         }
 
         .header p {
@@ -32,7 +32,7 @@
         }
 
         .header h1 {
-            font-family: 'Cursive', sans-serif;
+            font-family: cursive, sans-serif;
             font-size: 2em;
             margin: 0;
         }
@@ -137,6 +137,10 @@
             background-color: #f5f5f5;
         }
 
+        .res-table tr {
+            color: black;
+        }
+
         .flex-container {
             display: flex;
             justify-content: space-between; 
@@ -166,33 +170,71 @@
     <div class="flex-container">
         <form class="form-container">
             <div class="form-group">
-                <label for="x">X:</label>
-                <div id="coord-x" class="radio-group">
-                    <label><input type="radio" name="x" value="-5">-2</label>
-                    <label><input type="radio" name="x" value="-4">-1.5</label>
-                    <label><input type="radio" name="x" value="-3">-1</label>
-                    <label><input type="radio" name="x" value="-2">-0.5</label>
-                    <label><input type="radio" name="x" value="-1">0</label>
-                    <label><input type="radio" name="x" value="0">0.5</label>
-                    <label><input type="radio" name="x" value="1">1</label>
-                    <label><input type="radio" name="x" value="2">1.5</label>
-                    <label><input type="radio" name="x" value="3">2</label>
+                <label>X:</label>
+                <div id="coord-x" class="button-group">
+                    <button type="button" data-value="-2">-2</button>
+                    <button type="button" data-value="-1.5">-1.5</button>
+                    <button type="button" data-value="-1">-1</button>
+                    <button type="button" data-value="-0.5">-0.5</button>
+                    <button type="button" data-value="0">0</button>
+                    <button type="button" data-value="0.5">0.5</button>
+                    <button type="button" data-value="1">1</button>
+                    <button type="button" data-value="1.5">1.5</button>
+                    <button type="button" data-value="2">2</button>
+                    <input type="hidden" name="x" id="x-value" value="">
                 </div>
+                <!-- <input type="hidden" name="x" id="x-value" value=""> -->
             </div>
             <div class="form-group">
                 <label for="y">Y:</label>
-                <input type="number" id="y" name="y" min="-5" max="5" step="0.5" required>
+                <input type="text" id="y" name="y" maxlength="10">
             </div>
-            <div class="form-group">
+            <div id="coord-r" class="button-group">
                 <label>R:</label>
-                <label><input type="radio" name="r" value="1" required> 1</label>
-                <label><input type="radio" name="r" value="1.5"> 1.5</label>
-                <label><input type="radio" name="r" value="2"> 2</label>
-                <label><input type="radio" name="r" value="2.5"> 2.5</label>
-                <label><input type="radio" name="r" value="3"> 3</label>
+                <button type="button" data-value="1">1</button>
+                <button type="button" data-value="1.5">1.5</button>
+                <button type="button" data-value="2">2</button>
+                <button type="button" data-value="2.5">2.5</button>
+                <button type="button" data-value="3">3</button>
+                <input type="hidden" name="r" id="r-value" value="">
             </div>
             <button id="send-btn" type="submit">Check</button>
+            <div class="input-log" id="input-log">
+                <!-- Поле для вывода ошибок при вводе -->
+            </div>
         </form>
+        
+        <script>
+            document.querySelectorAll('.button-group').forEach(group => {
+                group.addEventListener('click', event => {
+                    if (event.target.tagName === 'BUTTON') {
+                        // Убираем активное состояние у всех кнопок в группе
+                        group.querySelectorAll('button').forEach(button => button.classList.remove('active'));
+                        // Добавляем активное состояние к нажатой кнопке
+                        event.target.classList.add('active');
+                        // Обновляем скрытое поле с выбранным значением
+                        const input = group.querySelector('input[type="hidden"]');
+                        input.value = event.target.getAttribute('data-value');
+                    }
+                });
+            });
+        </script>
+        
+        <style>
+            .button-group button {
+                margin: 2px;
+                padding: 10px;
+                background-color: #f0f4f8;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+            .button-group button.active {
+                background-color: #3f51b5;
+                color: white;
+            }
+        </style>
+        
         <div class="graph-container">
             <svg class="graph" height="300" width="300" xmlns="http://www.w3.org/2000/svg">
 
@@ -247,15 +289,21 @@
     </div>
     <div class="results-side">
         <table class="res-table" id="res-table">
-            <tr>
-                <th>Hit</th>
-                <th>X</th>
-                <th>Y</th>
-                <th>R</th>
-                <th>Operating time (ms)</th>
-                <th>Current time</th>
-            </tr>
+            <thead>
+                <tr style="color: white;">
+                    <th>Hit</th>
+                    <th>X</th>
+                    <th>Y</th>
+                    <th>R</th>
+                    <th>Operating time (ms)</th>
+                    <th>Current time</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Новые строки будут добавляться сюда -->
+            </tbody>
         </table>
     </div>
+    <script type="module" src="main.js"></script>
 </body>
 </html>

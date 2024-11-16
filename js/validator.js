@@ -25,22 +25,22 @@ export default class Validate
             return false;
     }
     checkX(x){
-        x = parseFloat(x.value);
+        x = parseFloat(x);
         this.x = x;
         if ([-2, -1.5, -1, -0.5, 0, 0.5, 1, 1.5, 2].includes(x))
             return true;
         else {
-            this.log = "Select X";
+            this.log = "Select X" + " " + x;
             return false;
         }
     }
 
     checkY(y) {
-        if (!/^(-?\d+(\.\d+)?)$/.test(y.value)){
+        if (!/^(-?\d+(\.\d+)?)$/.test(y)){
             this.log = "Y must contain number";
             return false;
         }
-        y = parseFloat(y.value);
+        y = parseFloat(y);
         this.y = y;
         if (isNaN(y)) {
             this.log = "Y must contain number";
@@ -55,7 +55,7 @@ export default class Validate
     }
 
     checkR(r) {
-        r = parseFloat(r.value);
+        r = parseFloat(r);
         this.r = r;
         if ([1, 1.5, 2, 2.5, 3].includes(r))
             return true;
