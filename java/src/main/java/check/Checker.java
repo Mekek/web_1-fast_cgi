@@ -6,14 +6,14 @@ public class Checker {
     }
 
     private boolean inRect(double x, float y, double r) {
-        return x <= 0 && y <= 0 && x >= -r && y >= (float) -r / 2;
+        return x <= 0 && y >= 0 && x >= (float) -r / 2 && y <= -r;
     }
 
     private boolean inTriangle(double x, float y, double r) {
-        return (x <= r/2) && (y <= (float) r/2) && (2 * x + 2 * y <= r) && x >= 0 && y >= 0;
+        return (x <= (float) r/2) && (y <= r) && (2 * x + y <= r) && x >= 0 && y >= 0;
     }
 
     private boolean inCircle(double x, float y, double r) {
-        return (x * x + y * y) <= (float) (r * r) / 4 && x <= 0 && y >= 0;
+        return (x * x + y * y) <= (r * r) && x <= 0 && y <= 0;
     }
 }

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Laboratory work №1</title>
     <style>
+        /* ===== Демонстрация наследования (шрифт у body наследуется во все элементы) ===== */
         body {
             font-family: 'Arial', sans-serif;
             margin: 0;
@@ -13,65 +14,34 @@
             color: #333;
         }
 
+        /* ===== Демонстрация каскадирования (стиль h1 перекрывает общий стиль body) ===== */
         .header {
             background-color: #3f51b5;
             color: white;
             text-align: center;
             padding: 20px;
             margin-bottom: 20px;
-            font-family: cursive;
-        }
-
-        .header p {
-            font-style: normal; 
-        }
-
-        .header p[data-group],
-        .header p[data-variant] {
-            font-style: italic; 
+            font-family: sans-serif; /* Новый вариант: sans-serif вместо cursive */
         }
 
         .header h1 {
-            font-family: cursive, sans-serif;
             font-size: 2em;
             margin: 0;
         }
 
-        .header p {
-            font-size: 1.2em;
+        /* ===== Селектор атрибута (data-group) ===== */
+        .header p[data-group],
+        .header p[data-variant] {
+            font-style: italic;
         }
 
-        form {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            padding: 20px;
-            background-color: white;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin-right: 20px;
+        /* ===== Селектор потомков (table td) ===== */
+        table td {
+            padding: 5px;
         }
 
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        label {
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        input[type="number"] {
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            font-size: 1em;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        button[type="submit"] {
+        /* ===== Селектор идентификатора (уникальный стиль для #send-btn) ===== */
+        #send-btn {
             background-color: #3f51b5;
             color: white;
             padding: 10px 20px;
@@ -81,7 +51,7 @@
             font-size: 1.1em;
         }
 
-        button[type="submit"]:hover {
+        #send-btn:hover { /* ===== Псевдокласс hover ===== */
             background-color: #283593;
         }
 
@@ -94,7 +64,7 @@
         }
 
         .graph text {
-            fill: black; 
+            fill: black;
         }
 
         .graph polygon,
@@ -102,13 +72,13 @@
         .graph circle,
         .graph line,
         .graph path {
-            stroke: black; 
+            stroke: black;
         }
 
         .graph rect,
         .graph polygon,
         .graph path {
-            fill-opacity: 0.1; 
+            fill-opacity: 0.1;
         }
 
         .results-side {
@@ -123,7 +93,6 @@
         }
 
         .res-table th, .res-table td {
-            padding: 10px;
             text-align: center;
             border: 1px solid #ccc;
         }
@@ -136,174 +105,154 @@
         .res-table td {
             background-color: #f5f5f5;
         }
-
-        .res-table tr {
-            color: black;
-        }
-
-        .flex-container {
-            display: flex;
-            justify-content: space-between; 
-            align-items: center; 
-            padding: 20px; 
-        }
-
-        .form-container {
-            margin-left: 25%;
-            flex: 0 0 auto;
-        }
-
-        .graph-container {
-            margin-right: 25%; 
-            flex: 0 0 auto; 
-        }
-
     </style>
 </head>
 <body>
-    <div class="header">
+<div class="header">
     <h1>Kadilov Mikhail Vladimirovich</h1>
-    <p class="group" data-group="P3331">Group: P3331</p>
-    <p class="variant" data-variant="939272">Variant: 939272</p>
-    </div>
-    
-    <div class="flex-container">
-        <form class="form-container">
-            <div class="form-group">
-                <label>X:</label>
-                <div id="coord-x" class="button-group">
-                    <button type="button" data-value="-2">-2</button>
-                    <button type="button" data-value="-1.5">-1.5</button>
-                    <button type="button" data-value="-1">-1</button>
-                    <button type="button" data-value="-0.5">-0.5</button>
-                    <button type="button" data-value="0">0</button>
-                    <button type="button" data-value="0.5">0.5</button>
-                    <button type="button" data-value="1">1</button>
-                    <button type="button" data-value="1.5">1.5</button>
-                    <button type="button" data-value="2">2</button>
-                    <input type="hidden" name="x" id="x-value" value="">
-                </div>
-                <!-- <input type="hidden" name="x" id="x-value" value=""> -->
-            </div>
-            <div class="form-group">
-                <label for="y">Y:</label>
-                <input type="text" id="y" name="y" maxlength="10">
-            </div>
-            <div id="coord-r" class="button-group">
-                <label>R:</label>
-                <button type="button" data-value="1">1</button>
-                <button type="button" data-value="1.5">1.5</button>
-                <button type="button" data-value="2">2</button>
-                <button type="button" data-value="2.5">2.5</button>
-                <button type="button" data-value="3">3</button>
-                <input type="hidden" name="r" id="r-value" value="">
-            </div>
-            <button id="send-btn" type="submit">Check</button>
-            <div class="input-log" id="input-log">
-                <!-- Поле для вывода ошибок при вводе -->
-            </div>
-        </form>
-        
-        <script>
-            document.querySelectorAll('.button-group').forEach(group => {
-                group.addEventListener('click', event => {
-                    if (event.target.tagName === 'BUTTON') {
-                        // Убираем активное состояние у всех кнопок в группе
-                        group.querySelectorAll('button').forEach(button => button.classList.remove('active'));
-                        // Добавляем активное состояние к нажатой кнопке
-                        event.target.classList.add('active');
-                        // Обновляем скрытое поле с выбранным значением
-                        const input = group.querySelector('input[type="hidden"]');
-                        input.value = event.target.getAttribute('data-value');
-                    }
-                });
-            });
-        </script>
-        
-        <style>
-            .button-group button {
-                margin: 2px;
-                padding: 10px;
-                background-color: #f0f4f8;
-                border: 1px solid #ccc;
-                border-radius: 5px;
-                cursor: pointer;
-            }
-            .button-group button.active {
-                background-color: #3f51b5;
-                color: white;
-            }
-        </style>
-        
-        <div class="graph-container">
-            <svg class="graph" height="300" width="300" xmlns="http://www.w3.org/2000/svg">
+    <p data-group="P3331">Group: P3331</p>
+    <p data-variant="939272">Variant: 367264</p>
+</div>
 
-                <!-- Оси со стрелками -->
-                <line x1="0" x2="285" y1="150" y2="150" />
-                <line x1="150" x2="150" y1="15" y2="300" />
-                <polygon points="150,0 144,15 156,15" />
-                <polygon points="300,150 285,156 285,144" />
-            
-                <!-- Засечки -->
-                <line x1="200" x2="200" y1="155" y2="145" />
-                <line x1="250" x2="250" y1="155" y2="145" />
-            
-                <line x1="50" x2="50" y1="155" y2="145" />
-                <line x1="100" x2="100" y1="155" y2="145" />
-            
-                <line x1="145" x2="155" y1="100" y2="100" />
-                <line x1="145" x2="155" y1="50" y2="50" />
-            
-                <line x1="145" x2="155" y1="200" y2="200" />
-                <line x1="145" x2="155" y1="250" y2="250" />
-            
-                <!-- Подписи к засечкам    -->
-                <text x="195" y="170">R/2</text>
-                <text x="248" y="170">R</text>
-            
-                <text x="40" y="170">-R</text>
-                <text x="90" y="170">-R/2</text>
-            
-                <text x="120" y="105">R/2</text>
-                <text x="130" y="55">R</text>
-            
-                <text x="120" y="205">-R/2</text>
-                <text x="130" y="255">-R</text>
-            
-                <text x="160" y="10">Y</text>
-                <text x="290" y="140">X</text>
-            
-                <!-- Треугольник (справа сверху) -->
-                <polygon points="150,100 150,150 200,150" fill-opacity="0.1" />
+<table style="margin: 0 auto; background: white; border: 1px solid #ccc; border-radius: 10px; padding: 10px;">
+    <tr>
+        <td>
+            <form method="POST">
+                <table>
+                    <tr>
+                        <td><label>X:</label></td>
+                        <td>
+                            <div id="coord-x" class="button-group">
+                                <button type="button" data-value="-2">-2</button>
+                                <button type="button" data-value="-1.5">-1.5</button>
+                                <button type="button" data-value="-1">-1</button>
+                                <button type="button" data-value="-0.5">-0.5</button>
+                                <button type="button" data-value="0">0</button>
+                                <button type="button" data-value="0.5">0.5</button>
+                                <button type="button" data-value="1">1</button>
+                                <button type="button" data-value="1.5">1.5</button>
+                                <button type="button" data-value="2">2</button>
+                                <input type="hidden" name="x" id="x-value" value="">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="y">Y:</label></td>
+                        <td><input type="text" id="y" name="y" maxlength="10" style="padding: 10px;"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="r-select">R:</label></td>
+                        <td>
+                            <select name="r" id="r-select" style="padding: 10px;">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align: center;">
+                            <button id="send-btn" type="submit">Check</button>
+                        </td>
+                    </tr>
+                </table>
+                <div class="input-log" id="input-log"></div>
+            </form>
+        </td>
+        <td>
+            <div class="graph-container">
+                <svg class="graph" height="300" width="300" xmlns="http://www.w3.org/2000/svg">
 
-                <!-- Прямоугольник (слева снизу) -->
-                <rect x="50" y="150" width="100" height="50" fill-opacity="0.1" />
-            
-                <!-- Полукруг (спарвва снизу) -->
-                <path d="M 150 100 A 50 50, 0, 0, 0, 100 150 L 150 150 Z" fill-opacity="0.1" /> 
-            
-                <!-- Центр оси координат -->
-                <circle cx="150" cy="150" id="target-dot" r="0" />
-            </svg>
-        </div>
-    </div>
-    <div class="results-side">
-        <table class="res-table" id="res-table">
-            <thead>
-                <tr style="color: white;">
-                    <th>Hit</th>
-                    <th>X</th>
-                    <th>Y</th>
-                    <th>R</th>
-                    <th>Operating time (ms)</th>
-                    <th>Current time</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Новые строки будут добавляться сюда -->
-            </tbody>
-        </table>
-    </div>
-    <script type="module" src="main.js"></script>
+                    <!-- Оси со стрелками -->
+                    <line x1="0" x2="285" y1="150" y2="150" />
+                    <line x1="150" x2="150" y1="15" y2="300" />
+                    <polygon points="150,0 144,15 156,15" />
+                    <polygon points="300,150 285,156 285,144" />
+
+                    <!-- Засечки -->
+                    <line x1="200" x2="200" y1="155" y2="145" />
+                    <line x1="250" x2="250" y1="155" y2="145" />
+
+                    <line x1="50" x2="50" y1="155" y2="145" />
+                    <line x1="100" x2="100" y1="155" y2="145" />
+
+                    <line x1="145" x2="155" y1="100" y2="100" />
+                    <line x1="145" x2="155" y1="50" y2="50" />
+
+                    <line x1="145" x2="155" y1="200" y2="200" />
+                    <line x1="145" x2="155" y1="250" y2="250" />
+
+                    <!-- Подписи к засечкам    -->
+                    <text x="195" y="170">R/2</text>
+                    <text x="248" y="170">R</text>
+
+                    <text x="40" y="170">-R</text>
+                    <text x="90" y="170">-R/2</text>
+
+                    <text x="120" y="105">R/2</text>
+                    <text x="130" y="55">R</text>
+
+                    <text x="120" y="205">-R/2</text>
+                    <text x="130" y="255">-R</text>
+
+                    <text x="160" y="10">Y</text>
+                    <text x="290" y="140">X</text>
+
+                    <!-- Треугольник (справа сверху) -->
+                    <polygon points="150,50 150,150 200,150" fill-opacity="0.1" />
+
+                    <!-- Прямоугольник (слева сверху) -->
+                    <rect x="100" y="50" width="50" height="100" fill-opacity="0.1" />
+
+                    <!-- Полукруг (спарвва снизу) -->
+                    <path d="M 50 150 A 100 100, 1, 0, 0, 150 250 L 150 150 Z" fill-opacity="0.1" />
+<!--                    d="M 150 100 A 50 50, 0, 0, 0, 100 150 L 150 150 Z"-->
+                    <!-- Центр оси координат -->
+                    <circle cx="150" cy="150" id="target-dot" r="0" />
+                </svg>
+            </div>
+        </td>
+    </tr>
+</table>
+
+<div class="results-side">
+    <table class="res-table" id="res-table">
+        <thead>
+        <tr style="color: white;">
+            <th>Hit</th>
+            <th>X</th>
+            <th>Y</th>
+            <th>R</th>
+            <th>Operating time (ms)</th>
+            <th>Current time</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Новые строки будут добавляться сюда -->
+        </tbody>
+    </table>
+</div>
+
+<script type="module" src="main.js"></script>
+
+<style>
+    /* ===== Псевдокласс :active ===== */
+    .button-group button:active {
+        background-color: #283593;
+        color: white;
+    }
+
+    /* ===== Селектор атрибута (выбранная кнопка) ===== */
+    .button-group button[data-value] {
+        margin: 2px;
+        padding: 10px;
+        background-color: #f0f4f8;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+</style>
 </body>
 </html>

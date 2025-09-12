@@ -20,10 +20,10 @@ public class Validate {
         xRange.add(2.0);
 
         rRange.add(1.0);
-        rRange.add(1.5);
         rRange.add(2.0);
-        rRange.add(2.5);
         rRange.add(3.0);
+        rRange.add(4.0);
+        rRange.add(5.0);
     }
 
     public boolean check(Double x, Float y, Double r) {
@@ -55,7 +55,7 @@ public class Validate {
         if (rRange.contains(r)) {
             return true;
         }
-        log = "R must be selected from the range: 1, 1.5, 2, 2.5, 3";
+        log = "R must be selected from the range: 1, 2, 3, 4, 5";
         return false;
     }
 }
