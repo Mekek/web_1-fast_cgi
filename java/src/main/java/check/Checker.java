@@ -6,7 +6,7 @@ public class Checker {
     }
 
     private boolean inRect(double x, float y, double r) {
-        return x <= 0 && y >= 0 && x >= (float) -r / 2 && y <= -r;
+        return x <= 0 && y >= 0 && x >= (float) -r / 2 && y <= r;
     }
 
     private boolean inTriangle(double x, float y, double r) {

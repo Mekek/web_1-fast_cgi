@@ -28,9 +28,9 @@ class Server {
                     boolean isShot;
                     boolean isValid;
                     try {
-                        Double x = Double.parseDouble(m.get("x"));
-                        Float y = Float.parseFloat(m.get("y"));
-                        Double r = Double.parseDouble(m.get("r"));
+                        double x = Double.parseDouble(m.get("x"));
+                        float y = Float.parseFloat(m.get("y"));
+                        double r = Double.parseDouble(m.get("r"));
 
                         isValid = v.check(x, y, r);
                         isShot = checker.hit(x, y, r);
@@ -45,7 +45,7 @@ class Server {
                         System.out.println(err(v.getErr()));
                     }
                 } else {
-                    System.out.println(err("empty body"));
+                    System.out.println(err("empty body (новая)"));
                 }
             } else {
                 System.out.println(err("method not allowed"));
@@ -54,17 +54,26 @@ class Server {
     }
 
     private static String readRequestBody() {
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
-            StringBuilder sb = new StringBuilder();
-            String line;
-            while (reader.ready() && (line = reader.readLine()) != null) {
-                sb.append(line);
+        try {
+            String contentLengthStr = FCGIInterface.request.params.getProperty("CONTENT_LENGTH");
+            int contentLength = 0;
+            if (contentLengthStr != null) {
+                contentLength = Integer.parseInt(contentLengthStr);
             }
-            return sb.toString();
+
+            char[] buffer = new char[contentLength];
+            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in, StandardCharsets.UTF_8));
+            int read = reader.read(buffer, 0, contentLength);
+            if (read > 0) {
+                return new String(buffer, 0, read);
+            } else {
+                return "";
+            }
         } catch (Exception e) {
             return "";
         }
     }
+
 
     private static LinkedHashMap<String, String> getValues(String inpString) {
         String[] args = inpString.split("&");

@@ -160,6 +160,21 @@
                 </table>
                 <div class="input-log" id="input-log"></div>
             </form>
+            <script>
+                document.querySelectorAll('.button-group').forEach(group => {
+                    group.addEventListener('click', event => {
+                        if (event.target.tagName === 'BUTTON') {
+                            // Убираем активное состояние у всех кнопок в группе
+                            group.querySelectorAll('button').forEach(button => button.classList.remove('active'));
+                            // Добавляем активное состояние к нажатой кнопке
+                            event.target.classList.add('active');
+                            // Обновляем скрытое поле с выбранным значением
+                            const input = group.querySelector('input[type="hidden"]');
+                            input.value = event.target.getAttribute('data-value');
+                        }
+                    });
+                });
+            </script>
         </td>
         <td>
             <div class="graph-container">
@@ -252,6 +267,12 @@
         border: 1px solid #ccc;
         border-radius: 5px;
         cursor: pointer;
+    }
+
+    .button-group button.active {
+        background-color: #283593; /* синий фон */
+        color: white;              /* белый текст */
+        border-color: #283593;     /* рамка совпадает с фоном */
     }
 </style>
 </body>

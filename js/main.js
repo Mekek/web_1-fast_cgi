@@ -4,7 +4,7 @@ const validator = new Validate();
 document.getElementById('send-btn').addEventListener('click', function(event) {
     event.preventDefault();
 
-    const x = document.querySelector('input[name="x"]:checked')?.value;
+    const x = document.querySelector('input[name="x"]').value;
 
     const y = document.querySelector('#y').value;
 
@@ -20,13 +20,18 @@ document.getElementById('send-btn').addEventListener('click', function(event) {
         const coords = validator.getCoords();
         console.log("Validated coords:", coords);
 
+        const params = new URLSearchParams();
+        params.append('x', coords.x);
+        params.append('y', coords.y);
+        params.append('r', coords.r);
+
         // Отправляем POST-запрос
         fetch('http://localhost:8080/fcgi-bin/server.jar', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
             },
-            body: `x=${coords.x}&y=${coords.y}&r=${coords.r}`
+            body: params.toString()
         })
             .then(response => {
                 if (!response.ok) {
@@ -36,7 +41,7 @@ document.getElementById('send-btn').addEventListener('click', function(event) {
             })
             .then(answer => {
                 localStorage.setItem("session", answer);
-                console.log("Server response:", answer);
+                console.log("Server response (новый):", answer);
 
                 const res = JSON.parse(answer);
                 const table = document.getElementById("res-table");
