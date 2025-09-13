@@ -41,7 +41,7 @@ document.getElementById('send-btn').addEventListener('click', function(event) {
             })
             .then(answer => {
                 localStorage.setItem("session", answer);
-                console.log("Server response (новый):", answer);
+                console.log("Server response:", answer);
 
                 const res = JSON.parse(answer);
                 const table = document.getElementById("res-table");

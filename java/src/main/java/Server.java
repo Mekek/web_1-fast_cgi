@@ -45,7 +45,7 @@ class Server {
                         System.out.println(err(v.getErr()));
                     }
                 } else {
-                    System.out.println(err("empty body (новая)"));
+                    System.out.println(err("empty body"));
                 }
             } else {
                 System.out.println(err("method not allowed"));
